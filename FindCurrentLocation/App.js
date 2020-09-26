@@ -31,7 +31,7 @@ export default function App() {
       }
   }
 
-  Geocoder.init(' AIzaSyD4AJXlk-m7KtRq1IgpuRmdwOGsyftSgLE',{language:'fi'})
+  Geocoder.init('ADDYOURKEYHERE',{language:'fi'})
   const find = async () => {
     Geocoder.from(address)
         .then(json => {
