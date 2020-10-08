@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { StyleSheet,View, Dimensions} from 'react-native';
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from 'react-native-geocoding';
 import {Button} from "react-native-elements";
@@ -8,13 +7,18 @@ import {Button} from "react-native-elements";
 
 
 export default function App( { route } ) {
+
+    useEffect(() =>{
+        find();
+    }, []);
     const { item } = route.params;
 
     const [latitude, setLatitude] = useState(60.200692)
     const [longitude, setLongitude] = useState(24.934302)
 
-    Geocoder.init('AIzaSyBaNI5rqPLOI5HNe4LnFK6GDfShszmg3OU',{language:'fi'})
+    Geocoder.init('ADDYOUROWNAPIKEYHERE',{language:'fi'})
     const find = async () => {
+        console.log(item);
         Geocoder.from(item.adress)
             .then(json => {
                 const cordinates = json.results[0].geometry.location
@@ -43,11 +47,7 @@ export default function App( { route } ) {
                     title={item.adress} />
             </MapView>
 
-            {/*<TextInput placeholder="type address" value={address} style={styles.textInput}
-                       onChangeText={address => setAddress(address)}
-            />*/}
-
-            <Button title={'show'}
+            <Button title={'SHOW'}
                     onPress={find}
             />
         </View>
@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        /*alignItems: 'center',
-        justifyContent: 'center',*/
     },
 
     textInput: {
@@ -69,6 +67,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 10,
         borderBottomWidth: 2
-    }     ,
+    }
 
 });
